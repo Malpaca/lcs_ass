@@ -19,6 +19,16 @@ int *** malloc_3d(int n, int m, int l){
 	return matrix;
 }
 
+void free_3d(int *** matrix, int n, int m){
+	for (int x = 0; x < n; x ++){
+		for (int y = 0; y < m; y++){
+			free(matrix[x][y]);
+		}
+		free(matrix[x]);
+	}
+	free(matrix);
+}
+
 int max(int a, int b, int c, int d){
 	int max = a;
 	if (b > max) max = b;
@@ -55,6 +65,7 @@ int lcs3(int *a, int n,  int *b, int m, int *c, int l) {
 			}
 		}
 	}
+	free_3d(matrix, n+1, m+1)
 	return matrix[n][m][l];
 }
 

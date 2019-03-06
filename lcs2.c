@@ -25,6 +25,13 @@ int ** malloc_2d(int n, int m){
 	return matrix;
 }
 
+void free_2d(int ** matrix, int n){
+	for (int row = 0; row < n; row ++){
+		free(matrix[row]);
+	}
+	free(matrix);
+}
+
 int max(int a, int b, int c){
 	int max = a;
 	if (b > max) max = b;
@@ -54,7 +61,8 @@ int lcs2(int *a, int n,  int *b, int m) {
 													 	 value(a, b, matrix, row-1, col-1, 1));
 		}
 	}
-	print_array_2D(matrix, n+1, m+1);
+	// print_array_2D(matrix, n+1, m+1);
+	free_2d(matrix, n+1);
 	return matrix[n][m];
 }
 
