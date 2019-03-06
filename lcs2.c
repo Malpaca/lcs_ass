@@ -18,49 +18,44 @@ void print_array_2D(int **arr, int rows, int cols){
 }
 
 int ** malloc_2d(int n, int m){
-	int ** matrix = malloc(n*sizeof(int));
+	int ** matrix = malloc(n*sizeof(int*));
 	for (int row = 0; row < n; row ++){
 		matrix[row] = malloc(m*sizeof(int));
 	}
 	return matrix;
 }
 
-int min(int a, int b, int c){
+int max(int a, int b, int c){
 	int max = a;
 	if (b > max) max = b;
 	if (c > max) max = c;
 	return max;
 }
 
-int value(int * a, int * b, int ** matrix, int brow, int bcol, int row, int col){
-	if (a[row-1]==b[col-1]) return matrix[brow][bcol]+1;
+int value(int * a, int * b, int ** matrix, int brow, int bcol, int type){
+	if (type && (a[brow]==b[bcol])) return matrix[brow][bcol]+1;
 	return matrix[brow][bcol];
 }
 
 int lcs2(int *a, int n,  int *b, int m) {
 	//write your code here
 
-	int ** matrix = malloc_2d(n,m);
-	for (int row = 0; row < n; row ++){
-		for (int col = 0; col < m; col ++){
-			matrix[row][col] = 0;
+	int ** matrix = malloc_2d(n+1,m+1);
+	for (int row = 0; row < n+1; row ++){
+		matrix[row][0] = 0;
+	}
+	for (int col = 0; col < m+1; col ++){
+		matrix[0][col] = 0;
+	}
+	for (int row = 1; row < n+1; row ++){
+		for (int col = 1; col < m+1; col ++){
+			matrix[row][col] = max(value(a, b, matrix, row-1, col, 0),
+														 value(a, b, matrix, row, col-1, 0),
+													 	 value(a, b, matrix, row-1, col-1, 1));
 		}
 	}
-	// for (int row = 0; row < n; row ++){
-	// 	matrix[row][0] = 0;
-	// }
-	// for (int col = 0; col < m; col ++){
-	// 	matrix[0][col] = 0;
-	// }
-	// for (int row = 1; row < n+1; row ++){
-	// 	for (int col = 1; col < m+1; col ++){
-	// 		matrix[row][col] = max(value(a, b, matrix, row-1, col, row, col),
-	// 													 value(a, b, matrix, row, col-1, row, col),
-	// 												 	 value(a, b, matrix, row-1, col-1, row, col));
-	// 	}
-	// }
-	// print_array_2D(matrix, n, m);
-	return 0;
+	print_array_2D(matrix, n+1, m+1);
+	return matrix[n][m];
 }
 
 int main() {
