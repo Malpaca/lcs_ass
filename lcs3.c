@@ -65,7 +65,7 @@ int lcs3(int *a, int n,  int *b, int m, int *c, int l) {
 			}
 		}
 	}
-	free_3d(matrix, n+1, m+1)
+	free_3d(matrix, n+1, m+1);
 	return matrix[n][m][l];
 }
 
