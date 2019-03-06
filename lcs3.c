@@ -112,6 +112,9 @@ int main() {
 	fflush(stdout);
 
 	int lcs = lcs3(a, n, b, m, c, l);
+	free(a);
+	free(b);
+	free(c);
 	printf("LCS = %d\n",lcs);
 
 	return 0;

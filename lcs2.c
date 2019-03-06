@@ -97,6 +97,8 @@ int main() {
 	fflush(stdout);
 
 	int lcs = lcs2(a, n, b, m);
+	free(a);
+	free(b);
 	printf("LCS = %d\n",lcs);
 
 	return 0;
